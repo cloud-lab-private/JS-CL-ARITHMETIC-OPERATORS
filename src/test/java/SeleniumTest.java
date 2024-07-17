@@ -24,17 +24,18 @@ public class SeleniumTest {
     public void setUp() {
      
         
-        System.setProperty("webdriver.edge.driver", "driver/msedgedriver");//linux_64
+         System.setProperty("webdriver.chrome.driver", "driver/chromedriver");//linux_64
+       
 
         // Get file
-        File file = new File("ForLoop.html");
+        File file = new File("index.html");
         String path = "file://" + file.getAbsolutePath();
 
+        // Create a new ChromeDriver instance
+         ChromeOptions options = new ChromeOptions();
         
-        EdgeOptions options = new EdgeOptions();
         options.addArguments("headless");
-        webDriver = new ChromeDriver(options);
-
+          webDriver = new ChromeDriver(options);
 
         // Open the HTML file
         webDriver.get(path);
