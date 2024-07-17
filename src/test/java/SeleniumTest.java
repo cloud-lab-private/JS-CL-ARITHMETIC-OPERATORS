@@ -14,27 +14,25 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class SeleniumTest {
 
     private WebDriver webDriver;
-
-    @BeforeEach
+    
+    @Before
     public void setUp() {
-     
-        
-         System.setProperty("webdriver.chrome.driver", "driver/chromedriver");//linux_64
-       
-
+        // Set up ChromeDriver path
+        System.setProperty("webdriver.chrome.driver", "driver/chromedriver");//linux_64
+ 
         // Get file
         File file = new File("index.html");
         String path = "file://" + file.getAbsolutePath();
-
+ 
         // Create a new ChromeDriver instance
-         ChromeOptions options = new ChromeOptions();
-        
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
-          webDriver = new ChromeDriver(options);
-
+        webDriver = new ChromeDriver(options);
+ 
         // Open the HTML file
         webDriver.get(path);
     }
+   
 
     
     @Test
