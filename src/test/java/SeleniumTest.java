@@ -9,8 +9,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -18,49 +16,30 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class TestArithmetic {
+public class SeleniumTest {
 
     private WebDriver webDriver;
 
     @BeforeEach
     public void setUp() {
-        String browserName = BrowserUtils.getWebDriverName();
+     
+        
+        System.setProperty("webdriver.edge.driver", "driver/msedgedriver");//linux_64
 
-        switch (browserName) {
-            case "chrome":
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("headless");
-                webDriver = new ChromeDriver(chromeOptions);
-                break;
+        // Get file
+        File file = new File("ForLoop.html");
+        String path = "file://" + file.getAbsolutePath();
 
-            case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("-headless");
-                webDriver = new FirefoxDriver(firefoxOptions);
-                break;
+        
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("headless");
+        webDriver = new ChromeDriver(options);
 
-            case "edge":
-                WebDriverManager.edgedriver().setup();
-                EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("--headless");
-                webDriver = new EdgeDriver(edgeOptions);
-                break;
 
-            case "ie":
-                WebDriverManager.iedriver().setup();
-                InternetExplorerOptions ieOptions = new InternetExplorerOptions();
-                ieOptions.addCommandSwitches("-headless");
-                webDriver = new InternetExplorerDriver(ieOptions);
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unsupported browser: " + browserName);
-        }
+        // Open the HTML file
+        webDriver.get(path);
     }
-    File file = new File("src/main/java/com/revature/index.html");
-    String path = "file://" + file.getAbsolutePath();
+
     
     @Test
     public void testAdd() {
